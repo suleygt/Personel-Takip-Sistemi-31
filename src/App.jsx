@@ -22,48 +22,7 @@ export default function App() {
     );
   }  
 
-  function findEvilCorp(reports) {
-    return reports.some((report) =>
-      report.employeeInput.toLowerCase().includes("evil corp.")
-    );
-  }
-
   
-    const handleClick = () => {
-      let evilCorpDetected = findEvilCorp(trackingReports);
-      let updatedInput = userInput;
-  
-      if (userInput.toLowerCase().includes("evil corp.")) {
-        updatedInput = userInput.replace(/evil corp\./gi, "Good Corp.");
-        evilCorpDetected = true;
-        console.log(infractionMessage);
-      }
-  
-
-      setUserInput(updatedInput);
-
-    setTrackingReports([
-      ...trackingReports,
-      {
-        timeStamp: getTimeStamp(),
-        employeeInput: value,
-        infractionDetected: evilCorpDetected,
-      },
-    ]);
-  };
-
-
-  return (
-    <div>
-      <textarea
-        placeholder="Raporunuzu buraya yazın..."
-        onChange={(e) => setUserInput(e.target.value)}
-        value={userInput}
-      />
-     <Header trackingReports={trackingReports} />
-    </div>
-  );
-}
 
 
   /* Challenge 
@@ -94,3 +53,45 @@ Bu şirket çalışanlarını gözetlemek istiyor. Göreviniz aşağıdakileri y
        4. Yalnızca aşağıdaki kodu yazmanız gerekir. Yukarıdaki veya projenin başka bir yerindeki kodların hiçbirinin değiştirilmesi gerekmiyor.
 */
 
+function findEvilCorp(reports) {
+  return reports.some((report) =>
+    report.employeeInput.toLowerCase().includes("evil corp.")
+  );
+}
+
+
+  const handleClick = () => {
+    let evilCorpDetected = findEvilCorp(trackingReports);
+    let updatedInput = userInput;
+
+    if (userInput.toLowerCase().includes("evil corp.")) {
+      updatedInput = userInput.replace(/evil corp\./gi, "Good Corp.");
+      evilCorpDetected = true;
+      console.log(infractionMessage);
+    }
+
+
+    setUserInput(updatedInput);
+
+  setTrackingReports([
+    ...trackingReports,
+    {
+      timeStamp: getTimeStamp(),
+      employeeInput: value,
+      infractionDetected: evilCorpDetected,
+    },
+  ]);
+};
+
+
+return (
+  <div>
+    <textarea
+      placeholder="Raporunuzu buraya yazın..."
+      onChange={(e) => setUserInput(e.target.value)}
+      value={userInput}
+    />
+   <Header trackingReports={trackingReports} />
+  </div>
+);
+}
